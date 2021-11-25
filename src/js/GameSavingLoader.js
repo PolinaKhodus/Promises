@@ -2,9 +2,7 @@ import read from './reader';
 import json from './parser';
 
 export default class GameSavingLoader {
-  static async load() {
-    const data = await read();
-    const newLocal = await json(data);
-    return newLocal;
+  static load() {
+    return read().then((data) => json(data));
   }
 }

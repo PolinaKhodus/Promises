@@ -1,7 +1,19 @@
 import GameSavingLoader from '../GameSavingLoader';
+import GameSaving from '../GameSaving';
 
-test('работа с асинхронностью', async () => {
-  expect.assertions(1);
-  const data = await GameSavingLoader.load();
-  expect(data).toEqual('{"id":9,"created":1546300800,"userInfo":{"id":1,name":"Hitman","level":10,"points":2000}}');
+test('should async load game saving', async () => {
+  const data = JSON.stringify({
+    id: 9,
+    created: 1546300800,
+    userInfo: {
+      id: 1,
+      name: 'Hitman',
+      level: 10,
+      points: 2000,
+    },
+  });
+  const expected = new GameSaving(data);
+
+  const saving = await GameSavingLoader.load();
+  expect(saving).toEqual(expected);
 });
